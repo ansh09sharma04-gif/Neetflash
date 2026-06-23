@@ -257,15 +257,14 @@ export default function App() {
   }
 
   // ── AUTH ───────────────────────────────────────────────────────────────────
-  const SANDBOX_MSG = "⚠️ External API calls are blocked in this preview. This will work fully when deployed to Vercel. Use Preview Mode below to test the app.";
+  
 
   async function handleSignup() {
     if (!authData.email || !authData.password || !authData.name) { setAuthError("Please fill in all fields."); return; }
     setAuthLoading(true); setAuthError(""); setAuthSuccess("");
     const { ok, data } = await sbSignUp(authData.email, authData.password, authData.name);
     setAuthLoading(false);
-    if (data?.msg === "NETWORK_ERROR" || !ok && data?.msg === "NETWORK_ERROR") {
-      setAuthError(SANDBOX_MSG); return;
+    
     }
     if (!ok) { setAuthError(data?.msg || data?.message || "Signup failed. Try again."); return; }
     setAuthSuccess("Account created! Check your email to verify, then log in.");
